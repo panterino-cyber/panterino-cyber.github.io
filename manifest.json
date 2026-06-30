@@ -1,0 +1,10 @@
+{
+  "name": "Hebrew SRS",
+  "short_name": "Hebrew SRS",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#111111",
+  "description": "Offline Hebrew SRS with verb tables",
+  "icons": []
+}
