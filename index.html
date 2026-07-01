@@ -3,18 +3,68 @@
 <meta name="theme-color" content="#111111"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Hebrew SRS"><link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="style.css"><title>Hebrew SRS</title></head><body>
-<header id="topHeader"><h1>Hebrew SRS</h1><p>Офлайн-повторение слов и целых таблиц глаголов</p></header>
+<header id="topHeader"><h1>Hebrew SRS</h1><p>Офлайн-повторение слов и таблиц глаголов</p></header>
+
 <main>
-<section class="panel stats" id="statsPanel"><div><b id="dueCount">0</b><span>сегодня</span></div><div><b id="totalCount">0</b><span>всего</span></div><div><b id="knownCount">0</b><span>знакомых</span></div><div><b id="missCount">0</b><span>ошибок</span></div></section>
-<section class="panel controlsPanel" id="controlsPanel"><h2>Режим повторения</h2><div class="segmented"><label><input type="radio" name="mode" value="single" checked> отдельные карточки</label><label><input type="radio" name="mode" value="verb"> глагол целиком</label></div><div class="segmented"><label><input type="radio" name="direction" value="ru-to-translit" checked> русский → транслитерация</label><label><input type="radio" name="direction" value="translit-to-ru"> транслитерация → русский</label></div><div class="segmented"><label><input type="radio" name="order" value="normal" checked> как записывал</label><label><input type="radio" name="order" value="random"> случайно</label></div><button id="focusBtn" class="primary wide">Режим повторения на весь экран</button></section>
-<section class="reviewShell"><div class="reviewTop"><h2 class="reviewTitle">Повторение</h2><div><span id="progressText" class="muted"></span> <button id="exitFocusBtn" class="hidden">← выйти</button></div></div><div id="emptyReview" class="muted empty">На сегодня карточек нет.</div><div id="reviewCard" class="reviewCard hidden"><div id="cardMeta" class="muted"></div><div id="front" class="front"></div><button id="showAnswerBtn" class="primary bigBtn">Показать ответ</button><div id="answerBox" class="answer hidden"><div id="answerMain" class="answer-main"></div><div id="answerDetails"></div><div class="buttons answerButtons"><button id="knownBtn" class="good bigBtn">Знал</button><button id="unknownBtn" class="bad bigBtn">Не знал</button><button id="skipBtn" class="bigBtn">Пропустить</button></div></div></div></section>
-<section class="panel editPanel"><h2>Добавить отдельную карточку</h2><input id="russianInput" placeholder="Русский смысл: пойду"><input id="translitInput" placeholder="Транслитерация: элЕх"><input id="tagsInput" placeholder="Теги: будущее 001"><textarea id="commentInput" placeholder="Комментарий"></textarea><button id="addBtn" class="primary">Добавить</button></section>
-<section class="panel editPanel"><h2>Импорт отдельных карточек списком</h2><p class="muted">Формат: <code>русский смысл    транслитерация</code>. Между колонками — таб, несколько пробелов или <code>|</code>.</p><textarea id="bulkInput" class="bulk" placeholder="войду; въеду; влечу    эканЭс&#10;войдем; въедем; влетим    никанЭс"></textarea><input id="bulkTagsInput" placeholder="Теги для всех строк: будущее 001"><button id="bulkBtn">Добавить списком</button></section>
-<section class="panel editPanel"><h2>Добавить глагол целиком</h2><input id="verbTitleInput" placeholder="Название/перевод глагола: делать, создавать, совершать"><input id="verbTagsInput" placeholder="Теги: пааль, будущее 001"><p class="muted">Заполняй только нужные формы. Пустые поля можно оставить пустыми.</p>
-<h3>Настоящее время</h3><div class="grid4"><input id="pr_ms" placeholder="м. ед.: осе"><input id="pr_fs" placeholder="ж. ед.: оса"><input id="pr_mp" placeholder="м. мн.: осим"><input id="pr_fp" placeholder="ж. мн.: осот"></div>
-<h3>Прошедшее время</h3><div class="grid2"><input id="pa_1s" placeholder="я: асити"><input id="pa_1p" placeholder="мы: асину"><input id="pa_2ms" placeholder="ты м.: асита"><input id="pa_2fs" placeholder="ты ж.: асит"><input id="pa_2mp" placeholder="вы м.: аситем"><input id="pa_2fp" placeholder="вы ж.: аситен"><input id="pa_3ms" placeholder="он: аса"><input id="pa_3fs" placeholder="она: аста"><input id="pa_3p" placeholder="они: асу"></div>
-<h3>Будущее время</h3><p class="muted">Без отдельной формы «они, женский род».</p><div class="grid2"><input id="fu_1s" placeholder="я: ээсэ"><input id="fu_1p" placeholder="мы: наасэ"><input id="fu_2ms" placeholder="ты м.: таасэ"><input id="fu_2fs" placeholder="ты ж.: тааси"><input id="fu_2p" placeholder="вы: таасу"><input id="fu_3ms" placeholder="он: яасэ"><input id="fu_3fs" placeholder="она: таасэ"><input id="fu_3p" placeholder="они: яасу"></div>
-<textarea id="verbCommentInput" placeholder="Комментарий к глаголу"></textarea><button id="addVerbBtn" class="primary">Добавить глагол</button></section>
-<section class="panel editPanel"><h2>Быстрый импорт глагола текстом</h2><p class="muted">Формат строк: <code>ключ | форма</code>. Например: <code>fu_1s | ээсэ</code>.</p><textarea id="verbBulkInput" class="bulk" placeholder="title | делать, создавать, совершать&#10;tags | пааль&#10;pr_ms | осе&#10;pr_fs | оса&#10;pr_mp | осим&#10;pr_fp | осот&#10;pa_1s | асити&#10;pa_1p | асину&#10;pa_2ms | асита&#10;pa_2fs | асит&#10;pa_2mp | аситем&#10;pa_2fp | аситен&#10;pa_3ms | аса&#10;pa_3fs | аста&#10;pa_3p | асу&#10;fu_1s | ээсэ&#10;fu_1p | наасэ&#10;fu_2ms | таасэ&#10;fu_2fs | тааси&#10;fu_2p | таасу&#10;fu_3ms | яасэ&#10;fu_3fs | таасэ&#10;fu_3p | яасу"></textarea><button id="addVerbBulkBtn">Добавить глагол из текста</button></section>
-<section class="panel editPanel"><h2>Поиск и база</h2><input id="searchInput" placeholder="Поиск по карточкам, глаголам, тегам"><div class="buttons"><button id="renderBtn">Показать базу</button><button id="exportBtn">Экспорт JSON</button><button id="importBtn">Импорт JSON</button><button id="clearBtn" class="danger">Очистить всё</button><input id="fileInput" type="file" accept="application/json" class="hidden"></div><div id="list"></div></section>
-</main><footer class="muted editPanel">Данные хранятся в браузере на устройстве. Делай экспорт JSON.</footer><script src="app.js"></script></body></html>
+<section id="homePage" class="page active">
+  <section class="panel stats"><div><b id="dueCount">0</b><span>сегодня</span></div><div><b id="totalCount">0</b><span>всего</span></div><div><b id="knownCount">0</b><span>знакомых</span></div><div><b id="missCount">0</b><span>ошибок</span></div></section>
+
+  <section class="panel">
+    <h2>Повторение</h2>
+    <div class="segmented"><label><input type="radio" name="mode" value="single" checked> отдельные карточки</label><label><input type="radio" name="mode" value="verb"> глагол целиком</label></div>
+    <div class="segmented"><label><input type="radio" name="direction" value="ru-to-translit" checked> русский → транслитерация</label><label><input type="radio" name="direction" value="translit-to-ru"> транслитерация → русский</label></div>
+    <div class="segmented"><label><input type="radio" name="order" value="normal" checked> как записывал</label><label><input type="radio" name="order" value="random"> случайно</label></div>
+    <button id="startReviewBtn" class="primary wide bigBtn">Начать повторение</button>
+  </section>
+
+  <section class="panel menu">
+    <button data-page="addSinglePage">Добавить карточки</button>
+    <button data-page="addVerbPage">Добавить глагол целиком</button>
+    <button data-page="databasePage">База / поиск / экспорт</button>
+  </section>
+</section>
+
+<section id="reviewPage" class="page reviewPage">
+  <div class="reviewTop"><button id="exitReviewBtn">← на главную</button><div id="progressText" class="muted"></div></div>
+  <div id="emptyReview" class="muted empty">На сегодня карточек нет.</div>
+  <div id="reviewCard" class="reviewCard hidden">
+    <div id="cardMeta" class="muted"></div>
+    <div id="front" class="front"></div>
+    <button id="showAnswerBtn" class="primary bigBtn">Показать ответ</button>
+    <div id="answerBox" class="answer hidden">
+      <div id="answerMain" class="answer-main"></div>
+      <div id="answerDetails"></div>
+      <div class="buttons answerButtons">
+        <button id="knownBtn" class="good bigBtn">Знал</button>
+        <button id="unknownBtn" class="bad bigBtn">Не знал</button>
+        <button id="skipBtn" class="bigBtn">Пропустить</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="addSinglePage" class="page">
+  <div class="pageTop"><button data-page="homePage">← назад</button><h2>Карточки</h2></div>
+  <section class="panel"><h2>Добавить одну карточку</h2><input id="russianInput" placeholder="Русский смысл: пойду"><input id="translitInput" placeholder="Транслитерация: элЕх"><input id="tagsInput" placeholder="Теги: будущее 001"><textarea id="commentInput" placeholder="Комментарий"></textarea><button id="addBtn" class="primary">Добавить</button></section>
+  <section class="panel"><h2>Импорт списком</h2><p class="muted">Формат: <code>русский смысл    транслитерация</code>. Между колонками — таб, несколько пробелов или <code>|</code>.</p><textarea id="bulkInput" class="bulk" placeholder="войду; въеду; влечу    эканЭс&#10;войдем; въедем; влетим    никанЭс"></textarea><input id="bulkTagsInput" placeholder="Теги для всех строк: будущее 001"><button id="bulkBtn">Добавить списком</button></section>
+</section>
+
+<section id="addVerbPage" class="page">
+  <div class="pageTop"><button data-page="homePage">← назад</button><h2>Глагол целиком</h2></div>
+  <section class="panel"><h2>Добавить глагол</h2><input id="verbTitleInput" placeholder="Название/перевод глагола: делать, создавать, совершать"><input id="verbTagsInput" placeholder="Теги: пааль, будущее 001"><p class="muted">Заполняй только нужные формы. Пустые поля можно оставить пустыми.</p>
+  <h3>Настоящее время</h3><div class="grid4"><input id="pr_ms" placeholder="м. ед.: осе"><input id="pr_fs" placeholder="ж. ед.: оса"><input id="pr_mp" placeholder="м. мн.: осим"><input id="pr_fp" placeholder="ж. мн.: осот"></div>
+  <h3>Прошедшее время</h3><div class="grid2"><input id="pa_1s" placeholder="я: асити"><input id="pa_1p" placeholder="мы: асину"><input id="pa_2ms" placeholder="ты м.: асита"><input id="pa_2fs" placeholder="ты ж.: асит"><input id="pa_2mp" placeholder="вы м.: аситем"><input id="pa_2fp" placeholder="вы ж.: аситен"><input id="pa_3ms" placeholder="он: аса"><input id="pa_3fs" placeholder="она: аста"><input id="pa_3p" placeholder="они: асу"></div>
+  <h3>Будущее время</h3><p class="muted">Без отдельной формы «они, женский род».</p><div class="grid2"><input id="fu_1s" placeholder="я: ээсэ"><input id="fu_1p" placeholder="мы: наасэ"><input id="fu_2ms" placeholder="ты м.: таасэ"><input id="fu_2fs" placeholder="ты ж.: тааси"><input id="fu_2p" placeholder="вы: таасу"><input id="fu_3ms" placeholder="он: яасэ"><input id="fu_3fs" placeholder="она: таасэ"><input id="fu_3p" placeholder="они: яасу"></div>
+  <textarea id="verbCommentInput" placeholder="Комментарий к глаголу"></textarea><button id="addVerbBtn" class="primary">Добавить глагол</button></section>
+
+  <section class="panel"><h2>Быстрый импорт глагола текстом</h2><p class="muted">Формат строк: <code>ключ | форма</code>. Например: <code>fu_1s | ээсэ</code>.</p><textarea id="verbBulkInput" class="bulk" placeholder="title | делать, создавать, совершать&#10;tags | пааль&#10;pr_ms | осе&#10;pr_fs | оса&#10;pr_mp | осим&#10;pr_fp | осот&#10;pa_1s | асити&#10;pa_1p | асину&#10;pa_2ms | асита&#10;pa_2fs | асит&#10;pa_2mp | аситем&#10;pa_2fp | аситен&#10;pa_3ms | аса&#10;pa_3fs | аста&#10;pa_3p | асу&#10;fu_1s | ээсэ&#10;fu_1p | наасэ&#10;fu_2ms | таасэ&#10;fu_2fs | тааси&#10;fu_2p | таасу&#10;fu_3ms | яасэ&#10;fu_3fs | таасэ&#10;fu_3p | яасу"></textarea><button id="addVerbBulkBtn">Добавить глагол из текста</button></section>
+</section>
+
+<section id="databasePage" class="page">
+  <div class="pageTop"><button data-page="homePage">← назад</button><h2>База</h2></div>
+  <section class="panel"><input id="searchInput" placeholder="Поиск по карточкам, глаголам, тегам"><div class="buttons"><button id="renderBtn">Показать базу</button><button id="exportBtn">Экспорт JSON</button><button id="importBtn">Импорт JSON</button><button id="clearBtn" class="danger">Очистить всё</button><input id="fileInput" type="file" accept="application/json" class="hidden"></div><div id="list"></div></section>
+</section>
+</main>
+
+<footer id="footer" class="muted">Данные хранятся в браузере на устройстве. Делай экспорт JSON.</footer>
+<script src="app.js"></script></body></html>
